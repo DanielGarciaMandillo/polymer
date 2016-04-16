@@ -1,0 +1,44 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html"
+>
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../contacts-behavior/contacts-behavior.html">
+
+
+
+<dom-module id="contacts-list">
+  <template>
+
+  <style>
+  :host([favorite]) .paper-icon-item {
+    background-color: #FFBA00;
+  }
+
+  .paper-item-body {
+    margin: 12px;
+    width: 67%;
+  }
+  </style>
+
+  <div role="listbox">
+    <paper-icon-item class="paper-icon-item">
+      <iron-image src="{{user.picture.thumbnail}}"></iron-image>
+      <paper-item-body class="paper-item-body" two-line>
+        <div>{{fullName}}</div>
+        <div secondary>{{user.email}}</div>
+      </paper-item-body>
+      <paper-icon-button on-tap="_markAsFavorite" icon="star"></paper-icon-button>
+    </paper-icon-item>
+  </div>
+
+  </template>
+  <script>
+    Polymer({
+      is:'contacts-list',
+      behaviors: [Polymer.ContactsBehavior]
+    });
+  </script>
+</dom-module>

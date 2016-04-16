@@ -1,0 +1,28 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<script>
+  Polymer.ContactsBehavior = {
+    properties: {
+      user : {
+        type: Object
+      },
+      fullName: {
+        type: String,
+        computed: '_computeFullname(user.name.first, user.name.last)'
+      },
+      favorite: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+        notify: true
+      }
+    },
+
+    _computeFullname: function(first, last) {
+      return first + ' ' + last;
+    },
+
+    _markAsFavorite: function() {
+      this.toggleAttribute('favorite');
+    }
+  }
+</script>

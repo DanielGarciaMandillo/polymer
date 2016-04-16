@@ -1,0 +1,114 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../contacts-behavior/contacts-behavior.html">
+
+<dom-module id="contacts-card">
+  <template>
+
+    <style is="custom-style">
+
+    p {
+      margin: 5px 0;
+      width: 128px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .cards {
+      margin: 5px;
+    }
+
+    .card-actions {
+      background-color: #00B1C6;
+      border-radius: 3px;
+    }
+
+    .card-content,
+    .card-actions {
+      padding: 0;
+    }
+
+    .sng-contacts-card__button {
+      margin: 0;
+      width: 100%;
+    }
+
+    :host([favorite]) .shield {
+      background-color: #353535;
+      height: 100%;
+      opacity: 0.8;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 4;
+    }
+
+    :host([favorite]) .cards {
+      position: fixed;
+      transform: scale(2);
+      top: 35%;
+      left: 50%;
+      z-index: 5;
+    }
+
+    :host([favorite]) .card-actions {
+      background-color: #FFBA00;
+    }
+
+    </style>
+    <template is="dom-if" if="{{!favorite}}">
+      <paper-card class="cards">
+        <div class="card-content">
+          <img src="{{user.picture.large}}">
+          <p style="text-align: center;">{{fullName}}</p>
+        </div>
+        <div on-tap="_markAsFavorite" class="card-actions">
+          <paper-button class="sng-contacts-card__button">More</paper-button>
+        </div>
+      </paper-card>
+    </template>
+
+    <template is="dom-if" if="{{favorite}}">
+      <div class="shield"></div>
+
+      <paper-card class="cards">
+        <div class="rate-content">
+          <img src="{{user.picture.large}}">
+          <div class="card-content">
+            <div class="rate-header">{{fullName}}</div>
+            <div class="rate-name">{{user.gender}}</div>
+            <div>From {{user.location.state}}</div>
+          </div>
+          <div class="card-actions">
+            <paper-icon-button class="rate-icon" on-tap="_markAsFavorite" icon="star"></paper-icon-button>
+            <paper-icon-button class="rate-icon" on-tap="_markAsFavorite" icon="star"></paper-icon-button>
+            <paper-icon-button class="rate-icon" on-tap="_markAsFavorite" icon="star"></paper-icon-button>
+            <paper-icon-button class="rate-icon" on-tap="_markAsFavorite" icon="star"></paper-icon-button>
+            <paper-icon-button class="rate-icon" on-tap="_markAsFavorite" icon="star"></paper-icon-button>
+          </div>
+        </div>
+      </paper-card>
+
+<!--       <paper-card class="cards">
+        <div class="card-content">
+          <img src="{{user.picture.large}}">
+          <p style="text-align: center;">{{fullName}}</p>
+        </div>
+        <div on-tap="_markAsFavorite" class="card-actions">
+          <paper-button class="sng-contacts-card__button">Close</paper-button>
+        </div>
+      </paper-card> -->
+    </template>
+
+  </template>
+  <script>
+    Polymer({
+      is:'contacts-card',
+      behaviors: [Polymer.ContactsBehavior]
+    });
+  </script>
+</dom-module>

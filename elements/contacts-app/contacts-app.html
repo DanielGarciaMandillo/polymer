@@ -1,0 +1,57 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../contacts-card/contacts-card.html">
+<link rel="import" href="../contacts-list/contacts-list.html">
+
+<dom-module id="contacts-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .mainView{
+        text-align: center;
+      }
+
+    </style>
+
+    <iron-ajax
+      auto
+      url$="https://randomuser.me/api/?results={{items}}"
+      handle-as="json"
+      last-response="{{data}}">
+    </iron-ajax>
+
+    <div class="mainView">
+      <template is="dom-repeat" items="[[data.results]]">
+        <contacts-card id=$index user="[[item]]" on-favorite-change="sayHello"></contacts-card>
+      </template>
+    </div>
+
+<!--     <div class="secondaryView">
+      <template is="dom-repeat" items="[[data.results]]">
+        <contacts-list user="[[item]]"></contacts-list>
+      </template>
+    </div> -->
+
+  </template>
+  <script>
+    Polymer({
+      is:'contacts-app',
+      properties : {
+        items: {
+          type: String,
+          value: 1
+        }
+      },
+      listeners : {
+        'favorite-change' : 'sayHello'
+      },
+
+      sayHello: function(e) {
+        console.log('Hello');
+      }
+    });
+  </script>
+</dom-module>
